@@ -1,0 +1,2 @@
+-   Change password for user
+-   Upload image by form data

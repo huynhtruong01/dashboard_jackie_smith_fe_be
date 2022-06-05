@@ -1,0 +1,82 @@
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+a {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: #000;
+    font-family: 'Poppins', sans-serif;
+}
+
+button {
+    border: none;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+}
+
+input {
+    border: none;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.PhoneInput {
+    padding: 16.5px 14px;
+    border: 1px solid rgba(0, 0, 0, 0.23);
+    border-radius: 5px;
+}
+
+.PhoneInput.error {
+    border: 1px solid #d32f2f;
+    color: #d32f2f;
+}
+
+.PhoneInput.error + p {
+    padding: 3px 14px;
+    color: #d32f2f;
+}
+
+.PhoneInput.error input {
+    color: #d32f2f;
+}
+
+.PhoneInput.error input::placeholder {
+    color: #d32f2f;
+}
+
+.PhoneInput:hover.error {
+    border: 1px solid #d32f2f;
+}
+
+.PhoneInput:hover {
+    border: 1px solid rgba(0, 0, 0, 1);
+}
+
+.PhoneInputCountry {
+    margin-right: 8px;
+}
