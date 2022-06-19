@@ -204,19 +204,55 @@ function Detail({ title = '', data, onClick = null }) {
                         </Typography>
                     </Box>
                     <Box>
-                        <Button
-                            variant="contained"
-                            sx={{
-                                backgroundColor: orange[300],
-                                '&:hover': {
-                                    backgroundColor: orange[600],
-                                },
-                            }}
-                            startIcon={<DeleteIcon />}
-                            onClick={handleDeleteClick}
-                        >
-                            Delete
-                        </Button>
+                        {title !== 'Cart' && (
+                            <Button
+                                variant="contained"
+                                sx={{
+                                    backgroundColor: orange[300],
+                                    '&:hover': {
+                                        backgroundColor: orange[600],
+                                    },
+                                }}
+                                startIcon={<DeleteIcon />}
+                                onClick={handleDeleteClick}
+                            >
+                                Delete
+                            </Button>
+                        )}
+                    </Box>
+                </Box>
+                <Box mb="20px" width="300px">
+                    <Box
+                        display="inline-block"
+                        borderRadius="5px"
+                        p="12px"
+                        backgroundColor="#fff"
+                        width="100%"
+                    >
+                        <Box mb="12px">
+                            <Typography component="p" color={grey[500]} fontSize="0.8rem">
+                                Name
+                            </Typography>
+                            <Typography component="p" fontSize="1.1rem" fontWeight={500}>
+                                {data?.userId?.fullname}
+                            </Typography>
+                        </Box>
+                        <Box mb="12px">
+                            <Typography component="p" color={grey[500]} fontSize="0.8rem">
+                                Address
+                            </Typography>
+                            <Typography component="p" fontSize="1.1rem" fontWeight={500}>
+                                {data?.userId?.address}
+                            </Typography>
+                        </Box>
+                        <Box mb="12px">
+                            <Typography component="p" color={grey[500]} fontSize="0.8rem">
+                                Phone number
+                            </Typography>
+                            <Typography component="p" fontSize="1.1rem" fontWeight={500}>
+                                0{data?.userId?.phoneNumber}
+                            </Typography>
+                        </Box>
                     </Box>
                 </Box>
                 <Box>

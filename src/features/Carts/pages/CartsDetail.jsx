@@ -18,6 +18,7 @@ function CartsDetail() {
             try {
                 const cart = await cartsApi.getById(params?.id)
 
+                console.log(cart)
                 setCart({ ...cart, id: cart._id })
             } catch (error) {
                 console.log('Error: ', error)
@@ -27,27 +28,26 @@ function CartsDetail() {
         getCart()
     }, [params?.id])
 
-    const handleDeleteClick = async (id) => {
-        if (!id) return
+    // const handleDeleteClick = async (id) => {
+    //     if (!id) return
 
-        try {
-            const { message } = await cartsApi.remove(id)
-            toast.success(message, {
-                autoClose: 2000,
-            })
+    //     try {
+    //         const { message } = await cartsApi.remove(id)
+    //         toast.success(message, {
+    //             autoClose: 2000,
+    //         })
 
-            setTimeout(() => navigate('/carts'), 3000)
-        } catch (error) {
-            toast.error(error.response.data.message, {
-                autoClose: 2000,
-            })
-        }
-    }
+    //         setTimeout(() => navigate('/carts'), 3000)
+    //     } catch (error) {
+    //         toast.error(error.response.data.message, {
+    //             autoClose: 2000,
+    //         })
+    //     }
+    // }
 
     return (
         <Box>
-            {cart && <Detail title="Cart" data={cart} onClick={handleDeleteClick} />}{' '}
-            <ToastContainer />
+            {cart && <Detail title="Cart" data={cart} />} <ToastContainer />
         </Box>
     )
 }

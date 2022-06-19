@@ -1,10 +1,10 @@
-import { Box } from '@mui/material'
-import { blue, red } from '@mui/material/colors'
+import { Box, Typography } from '@mui/material'
+import { blue, red, orange } from '@mui/material/colors'
 import { Chart, registerables } from 'chart.js'
 import React, { useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2'
 import ordersApi from '../../../../api/ordersApi'
-import { getYear } from '../../../../utils/common'
+import { getYear, generateDate } from '../../../../utils/common'
 
 Chart.register(...registerables)
 ChartYear.propTypes = {}
@@ -87,27 +87,32 @@ function ChartYear() {
 
     return (
         <Box>
-            <Bar
-                data={{
-                    labels: [2020, 2021, 2022],
-                    datasets: [
-                        {
-                            label: 'revenue',
-                            data: Object.values(revenue),
-                            backgroundColor: blue[50],
-                            borderColor: blue[600],
-                            borderWidth: 1,
-                        },
-                        {
-                            label: 'user',
-                            data: user,
-                            backgroundColor: red[50],
-                            borderColor: red[600],
-                            borderWidth: 1,
-                        },
-                    ],
-                }}
-            />
+            <Typography variant="h4" component="h3" mb="16px" color={orange[500]}>
+                {generateDate()}
+            </Typography>
+            <Box p="8px" borderRadius="5px" backgroundColor="#fff">
+                <Bar
+                    data={{
+                        labels: [2020, 2021, 2022],
+                        datasets: [
+                            {
+                                label: 'revenue',
+                                data: Object.values(revenue),
+                                backgroundColor: blue[50],
+                                borderColor: blue[600],
+                                borderWidth: 1,
+                            },
+                            {
+                                label: 'user',
+                                data: user,
+                                backgroundColor: red[50],
+                                borderColor: red[600],
+                                borderWidth: 1,
+                            },
+                        ],
+                    }}
+                />
+            </Box>
         </Box>
     )
 }

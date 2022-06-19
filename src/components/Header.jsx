@@ -15,8 +15,6 @@ function Header() {
     const navigate = useNavigate()
     const open = Boolean(anchorEl)
 
-    console.log(getUser)
-
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget)
     }
@@ -94,6 +92,7 @@ function Header() {
                                     <Button
                                         id="basic-button"
                                         aria-controls={open ? 'basic-menu' : undefined}
+                                        aria-haspopup="true"
                                         aria-expanded={open ? 'true' : undefined}
                                         onClick={handleClick}
                                         sx={{

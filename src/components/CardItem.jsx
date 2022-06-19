@@ -11,7 +11,7 @@ function CardProduct({ product }) {
     return (
         <Box width="100%" borderBottom={`1px solid ${grey[400]}`} p="12px 0">
             <Box display="flex">
-                <Box width="35%" mr="10px">
+                <Box width="30%" mr="10px">
                     <img src={product?.image} alt={product?.name} />
                 </Box>
                 <Box>
@@ -58,7 +58,7 @@ function CardProductItems({ item }) {
     return (
         <Box width="100%" borderBottom={`1px solid ${grey[400]}`} p="12px 0">
             <Box display="flex">
-                <Box width="35%" mr="10px">
+                <Box width="30%" mr="10px">
                     <img src={product?.image} alt={product?.name} />
                 </Box>
                 <Box flex={1}>
@@ -116,7 +116,7 @@ function CardProductOrder({ items }) {
     return (
         <Box>
             <Box>
-                {items?.map((item) => (
+                {items.item.product?.map((item) => (
                     <Box key={item._id}>
                         <CardProductItems item={item} />
                     </Box>
@@ -129,7 +129,7 @@ function CardProductOrder({ items }) {
 function CardItem({ title, data, number }) {
     const { pathname } = useLocation()
 
-    console.log(data)
+    console.log(data, title)
 
     return (
         <Box width="100%" backgroundColor="#fff" borderRadius="8px">
@@ -242,14 +242,18 @@ function CardItem({ title, data, number }) {
                             <CardProduct product={product} />
                         ))}
 
-                        {!data?.userId?.fullname &&
-                            data?.items
-                                ?.slice(0, 2)
-                                .map((item) => <CardProductItems item={item} />)}
-
-                        {data?.userId?.fullname && <CardProductOrder items={data?.items[0]} />}
+                        {data?.userId?.fullname &&
+                            data?.items?.slice(0, 2).map((item) => (
+                                <Box key={item._id}>
+                                    <CardProductItems item={item} />
+                                </Box>
+                            ))}
                     </Box>
-                    <Box display="flex" justifyContent="center" alignItems="center">
+                    <Box
+                        display="flex"
+                        justifyContent={data?.totalPrice ? 'space-between' : 'center'}
+                        alignItems="center"
+                    >
                         <Button
                             endIcon={<ArrowForwardIcon />}
                             variant="contained"
@@ -266,6 +270,34 @@ function CardItem({ title, data, number }) {
                         >
                             <Link to={`${pathname}/${data._id}`}>Learn more</Link>
                         </Button>
+                        {data?.totalPrice && (
+                            <Box>
+                                <Typography
+                                    fontWeight={500}
+                                    sx={{
+                                        span: {
+                                            color: orange[500],
+                                            fontSize: '1.1rem',
+                                            ml: '4px',
+                                        },
+                                    }}
+                                >
+                                    Total quantity: <span>{data?.totalQuantity}</span>
+                                </Typography>
+                                <Typography
+                                    fontWeight={500}
+                                    sx={{
+                                        span: {
+                                            color: orange[500],
+                                            fontSize: '1.1rem',
+                                            ml: '4px',
+                                        },
+                                    }}
+                                >
+                                    Total price: <span>{formatPrice(data?.totalPrice)}</span>
+                                </Typography>
+                            </Box>
+                        )}
                     </Box>
                 </Box>
             </Box>

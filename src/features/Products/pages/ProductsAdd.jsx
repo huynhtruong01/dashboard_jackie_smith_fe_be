@@ -24,7 +24,11 @@ function ProductsAdd() {
 
     const onSubmit = async (values) => {
         try {
-            const { message } = await productsApi.add(values)
+            const formData = new FormData()
+            Object.keys(values).forEach((x) => {
+                formData.append(x, values[x])
+            })
+            const { message } = await productsApi.addFormData(formData)
             toast.success(message, {
                 autoClose: 2000,
             })
@@ -33,12 +37,13 @@ function ProductsAdd() {
             toast.error(error.response.data.message, {
                 autoClose: 2000,
             })
+            console.log(error.response.data.error)
         }
     }
 
     return (
         <Box width="100%" p="10px" display="flex" justifyContent="center">
-            <Box width="50%">
+            <Box width="450px">
                 <Box p="20px" backgroundColor="#fff" borderRadius="8px">
                     <ProductsForm values={defaultValues} onSubmit={onSubmit} />
                 </Box>

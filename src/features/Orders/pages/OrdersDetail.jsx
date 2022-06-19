@@ -5,6 +5,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import ordersApi from '../../../api/ordersApi'
 import DetailOrder from '../../../components/DetailOrder'
+import { formatDate } from '../../../utils/common'
 
 OrdersDetail.propTypes = {}
 
@@ -17,7 +18,26 @@ function OrdersDetail() {
         const getOrder = async () => {
             try {
                 const order = await ordersApi.getById(params?.id)
-                setOrder({ ...order, id: order._id })
+                const items = order.items.reduce((obj, item) => {
+                    const date = formatDate(item.dayPay)
+                    if (!obj[date]) {
+                        obj[date] = [item]
+                    } else {
+                        obj[date].push(item)
+                    }
+
+                    return obj
+                }, {})
+                const newOrder = []
+                for (const key in items) {
+                    const item = {
+                        datePay: key,
+                        products: items[key],
+                    }
+                    newOrder.push(item)
+                }
+
+                setOrder({ ...order, items: newOrder, id: order._id })
             } catch (error) {
                 console.log('Error: ', error)
             }

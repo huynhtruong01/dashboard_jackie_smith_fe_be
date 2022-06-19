@@ -1,9 +1,9 @@
+import { Avatar, Box, Button, InputLabel, TextField, Typography } from '@mui/material'
+import { grey, orange } from '@mui/material/colors'
 import React from 'react'
-import PropTypes from 'prop-types'
-import { Box, Typography, InputLabel, TextField, Avatar } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { capitalizeCharacter, getNameInLast, hashPassword } from '../utils/common'
-import { grey, orange } from '@mui/material/colors'
+import { Link } from 'react-router-dom'
 
 InfoAccount.propTypes = {}
 
@@ -50,9 +50,9 @@ function InfoAccount() {
                 <Box display="flex" mb="30px" justifyContent="center">
                     <Avatar
                         sx={{
-                            fontSize: '4rem',
-                            width: 76,
-                            height: 76,
+                            fontSize: '2rem',
+                            width: 60,
+                            height: 60,
                             backgroundColor: orange[100],
                             color: orange[600],
                             mr: '20px',
@@ -106,6 +106,22 @@ function InfoAccount() {
                             </Box>
                         ))}
                     </Box>
+                </Box>
+                <Box mt="20px" display="flex">
+                    <Link to="/change-password">
+                        <Button
+                            sx={{
+                                backgroundColor: orange[100],
+                                color: orange[700],
+                                '&:hover': {
+                                    backgroundColor: orange[600],
+                                    color: '#fff',
+                                },
+                            }}
+                        >
+                            Change password
+                        </Button>
+                    </Link>
                 </Box>
             </Box>
         </Box>

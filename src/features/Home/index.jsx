@@ -130,7 +130,7 @@ function Home(props) {
                                     icon: AttachMoneyIcon,
                                     link: '',
                                     color: green,
-                                    number: formatPrice(totalPrice),
+                                    number: formatPrice(totalPrice) || 0,
                                 }}
                             />
                         </Box>

@@ -38,11 +38,15 @@ function Login() {
     }
 
     return (
-        <Box width="100%">
-            <Box pt="50px" width="100%" display="flex" justifyContent="center">
-                <Box width="40%" borderRadius="8px" backgroundColor="#fff" p="16px">
-                    <LoginForm onSubmit={onSubmit} />
-                </Box>
+        <Box pt="50px" width="100%">
+            <Box
+                width="400px"
+                borderRadius="5px"
+                margin="auto"
+                backgroundColor="#fff"
+                p="16px 16px 20px"
+            >
+                <LoginForm onSubmit={onSubmit} />
             </Box>
             <ToastContainer />
         </Box>

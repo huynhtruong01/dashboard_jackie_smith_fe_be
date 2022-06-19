@@ -21,11 +21,11 @@ function OrdersHome() {
         }
 
         getAllOrder()
-    })
+    }, [])
 
     return (
         <Box>
-            <Box mb="22px">
+            <Box mb="8px">
                 <Typography variant="h6" component="h2" color={`${grey[900]}`}>
                     Orders
                 </Typography>

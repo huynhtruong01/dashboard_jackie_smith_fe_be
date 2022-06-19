@@ -86,11 +86,16 @@ function DetailOrderItem({ item }) {
             </TableCell>
             <TableCell align="center">{capitalizeCharacter(item?.product.color)}</TableCell>
             <TableCell align="center">{capitalizeCharacter(item?.product.style)}</TableCell>
+            <TableCell align="center">{capitalizeCharacter(item?.size)}</TableCell>
         </>
     )
 }
 
 function DetailOrderItems({ items, number }) {
+    const { datePay, products } = items
+
+    console.log(products)
+
     return (
         <Box mb="40px">
             <Box mb="8px">
@@ -101,8 +106,9 @@ function DetailOrderItems({ items, number }) {
                     color={grey[700]}
                     backgroundColor="#fff"
                     borderRadius="5px"
-                    p="8px"
+                    p="8px 12px"
                     fontWeight={600}
+                    mr="12px"
                 >
                     Invoice{' '}
                     <Typography
@@ -113,6 +119,18 @@ function DetailOrderItems({ items, number }) {
                     >
                         {number}
                     </Typography>
+                </Typography>
+                <Typography
+                    component="span"
+                    variant="body1"
+                    color={grey[700]}
+                    backgroundColor="#fff"
+                    borderRadius="5px"
+                    p="8px 12px"
+                    fontWeight={500}
+                    border={`1px solid ${grey[300]}`}
+                >
+                    Date pay: {datePay}
                 </Typography>
             </Box>
             <Box mb="16px">
@@ -130,12 +148,13 @@ function DetailOrderItems({ items, number }) {
                                 <TableCell align="center">Quantity</TableCell>
                                 <TableCell align="center">Color</TableCell>
                                 <TableCell align="center">Style</TableCell>
+                                <TableCell align="center">Size</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {items.map((item) => (
-                                <TableRow key={item._id}>
-                                    <DetailOrderItem item={item} />
+                            {products?.map((x) => (
+                                <TableRow key={x?._id}>
+                                    <DetailOrderItem item={x} />
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -157,11 +176,11 @@ function DetailOrderItems({ items, number }) {
                         borderBottom={`1px solid ${grey[300]}`}
                     >
                         <Typography component="span">Total quantity</Typography>
-                        <Typography component="span">{calculatorQuantity(items)}</Typography>
+                        <Typography component="span">{calculatorQuantity(products)}</Typography>
                     </Box>
                     <Box display="flex" justifyContent="space-between" p="12px 0">
                         <Typography component="span">Total price</Typography>
-                        <Typography component="span">{calculatorPrice(items)}</Typography>
+                        <Typography component="span">{calculatorPrice(products)}</Typography>
                     </Box>
                 </Box>
             </Box>
@@ -170,6 +189,7 @@ function DetailOrderItems({ items, number }) {
 }
 
 function DetailOrder({ data, title = '' }) {
+    console.log(data)
     return (
         <Box>
             <Box>

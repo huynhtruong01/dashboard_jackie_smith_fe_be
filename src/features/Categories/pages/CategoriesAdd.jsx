@@ -34,7 +34,7 @@ function CategoriesAdd() {
 
     return (
         <Box width="100%" p="10px" display="flex" justifyContent="center">
-            <Box width="50%">
+            <Box width="400px">
                 <Box p="20px" backgroundColor="#fff" borderRadius="8px">
                     <CategoriesForm values={defaultValues} onSubmit={onSubmit} />
                 </Box>

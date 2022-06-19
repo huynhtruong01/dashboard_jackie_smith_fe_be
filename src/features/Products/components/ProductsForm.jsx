@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Typography, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
@@ -8,6 +8,7 @@ import SelectField from '../../../components/formControls/SelectField'
 import categoriesApi from '../../../api/categoriesApi'
 import { colors, styles } from '../../../utils/common'
 import { orange, grey } from '@mui/material/colors'
+import UploadImageField from '../../../components/formControls/UploadImageField'
 
 ProductsForm.propTypes = {}
 
@@ -41,9 +42,19 @@ function ProductsForm({ values, onSubmit = null }) {
                 ),
             description: yup.string().required('Please enter description'),
             image: yup
-                .string()
-                .required('Please enter image url')
-                .url('Invalid image, image must be url'),
+                .mixed()
+                .required('Please choose image url')
+                .test(
+                    'is-valid-image',
+                    'The image must be file size less than 4000000 or an url',
+                    (value) => {
+                        return (
+                            typeof value === 'string' ||
+                            typeof value === 'object' ||
+                            value.size <= 4000000
+                        )
+                    }
+                ),
             originalPrice: yup
                 .number()
                 .required('Please enter original price')
@@ -74,6 +85,7 @@ function ProductsForm({ values, onSubmit = null }) {
     const handleSubmit = async (values) => {
         if (!onSubmit) return
         try {
+            console.log(values)
             const newValues = {
                 ...values,
                 salePrice: Number.parseInt(
@@ -111,12 +123,12 @@ function ProductsForm({ values, onSubmit = null }) {
                         label="Description"
                         placeholder="Enter description"
                     />
-                    <InputField
+                    {/* <InputField
                         name="image"
                         form={form}
                         label="Image"
                         placeholder="Enter image url"
-                    />
+                    /> */}
                     <InputField
                         name="originalPrice"
                         form={form}
@@ -132,6 +144,7 @@ function ProductsForm({ values, onSubmit = null }) {
                     <SelectField name="category" label="Category" form={form} data={categoryList} />
                     <SelectField name="color" label="Color" form={form} data={colors()} />
                     <SelectField name="style" label="Style" form={form} data={styles()} />
+                    <UploadImageField name="image" form={form} label="Image" />
                 </Box>
                 <Button
                     type="submit"

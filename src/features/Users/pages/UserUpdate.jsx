@@ -61,7 +61,7 @@ function UsersUpdate() {
 
     return (
         <Box width="100%" p="10px" display="flex" justifyContent="center">
-            <Box width="50%">
+            <Box width="450px">
                 <Box p="20px" backgroundColor="#fff" borderRadius="8px">
                     {defaultValues && <UsersForm values={defaultValues} onSubmit={onSubmit} />}
                 </Box>

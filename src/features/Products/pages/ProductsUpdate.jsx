@@ -39,7 +39,7 @@ function ProductsUpdate() {
 
     const onSubmit = async (values) => {
         try {
-            const { message } = await productsApi.update({ ...values, _id: params?.id })
+            const { message } = await productsApi.updateFormData({ ...values, _id: params?.id })
             toast.success(message, {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 2000,
@@ -56,7 +56,7 @@ function ProductsUpdate() {
 
     return (
         <Box width="100%" p="10px" display="flex" justifyContent="center">
-            <Box width="50%">
+            <Box width="450px">
                 <Box p="20px" backgroundColor="#fff" borderRadius="8px">
                     {defaultValues && <ProductsForm values={defaultValues} onSubmit={onSubmit} />}
                 </Box>

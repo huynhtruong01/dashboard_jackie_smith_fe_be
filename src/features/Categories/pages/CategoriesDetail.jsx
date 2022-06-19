@@ -17,6 +17,7 @@ function CategoriesDetail() {
         const getCategory = async () => {
             try {
                 const category = await categoriesApi.getById(params?.id)
+                console.log(category)
                 setCategory({ ...category, id: category._id })
             } catch (error) {
                 console.log('Error: ', error)
