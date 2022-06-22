@@ -31,11 +31,13 @@ function ProductsAdd() {
             const { message } = await productsApi.addFormData(formData)
             toast.success(message, {
                 autoClose: 2000,
+                theme: 'colored',
             })
             setTimeout(() => navigate('/products'), 3000)
         } catch (error) {
             toast.error(error.response.data.message, {
                 autoClose: 2000,
+                theme: 'colored',
             })
             console.log(error.response.data.error)
         }

@@ -4,8 +4,11 @@ import { formatDate, formatPrice, truncate } from '../utils/common'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { grey, orange } from '@mui/material/colors'
 import { Link, useLocation } from 'react-router-dom'
+import EditIcon from '@mui/icons-material/Edit'
 
 CardItem.propTypes = {}
+
+const updateList = ['style', 'category', 'color']
 
 function CardProduct({ product }) {
     return (
@@ -129,8 +132,7 @@ function CardProductOrder({ items }) {
 function CardItem({ title, data, number }) {
     const { pathname } = useLocation()
 
-    console.log(data, title)
-
+    // console.log(data, updateList.includes(title.toLowerCase()), title.toLowerCase())
     return (
         <Box width="100%" backgroundColor="#fff" borderRadius="8px">
             <Box width="100%" p="12px 12px 16px">
@@ -249,27 +251,50 @@ function CardItem({ title, data, number }) {
                                 </Box>
                             ))}
                     </Box>
-                    <Box
-                        display="flex"
-                        justifyContent={data?.totalPrice ? 'space-between' : 'center'}
-                        alignItems="center"
-                    >
-                        <Button
-                            endIcon={<ArrowForwardIcon />}
-                            variant="contained"
+                    <Box>
+                        <Box
+                            display="flex"
                             sx={{
-                                backgroundColor: orange[300],
-                                '& > a': {
-                                    color: '#fff',
-                                },
-
-                                '&:hover': {
-                                    backgroundColor: orange[600],
+                                a: {
+                                    display: 'flex',
+                                    justifyContent: `${
+                                        data?.totalPrice ? 'space-between' : 'center'
+                                    }`,
+                                    alignItems: 'center',
                                 },
                             }}
                         >
-                            <Link to={`${pathname}/${data._id}`}>Learn more</Link>
-                        </Button>
+                            <Link to={`${pathname}/${data._id}`}>
+                                <Button
+                                    endIcon={<ArrowForwardIcon />}
+                                    variant="contained"
+                                    sx={{
+                                        backgroundColor: orange[300],
+                                        '&:hover': {
+                                            backgroundColor: orange[600],
+                                        },
+                                    }}
+                                >
+                                    Learn more
+                                </Button>
+                            </Link>
+                            {updateList.includes(title.toLowerCase()) && (
+                                <Link to={`${pathname}/update/${data._id}`}>
+                                    <Button
+                                        startIcon={<EditIcon />}
+                                        variant="contained"
+                                        sx={{
+                                            backgroundColor: orange[300],
+                                            '&:hover': {
+                                                backgroundColor: orange[600],
+                                            },
+                                        }}
+                                    >
+                                        Edit
+                                    </Button>
+                                </Link>
+                            )}
+                        </Box>
                         {data?.totalPrice && (
                             <Box>
                                 <Typography

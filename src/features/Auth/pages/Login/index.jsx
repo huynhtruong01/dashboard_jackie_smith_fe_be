@@ -25,12 +25,14 @@ function Login() {
             // notification
             toast.success(user.message, {
                 autoClose: 2000,
+                theme: 'colored',
             })
 
             setTimeout(() => navigate('/'), 3000)
         } catch (error) {
             toast.error(error.response.data.message, {
                 autoClose: 2000,
+                theme: 'colored',
             })
 
             console.log(error.response.data.error)

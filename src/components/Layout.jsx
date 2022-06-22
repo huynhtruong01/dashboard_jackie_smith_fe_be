@@ -4,9 +4,11 @@ import { Route, Routes } from 'react-router-dom'
 import Carts from '../features/Carts'
 import Categories from '../features/Categories'
 import Chart from '../features/Chart'
+import Colors from '../features/Colors'
 import Home from '../features/Home'
 import Orders from '../features/Orders'
 import Products from '../features/Products'
+import Styles from '../features/Styles'
 import Users from '../features/Users'
 import Permission from './Permission'
 import Sidebar from './Sidebar'
@@ -33,6 +35,8 @@ function Layout() {
                     <Route path="products/*" element={<Products />} />
                     <Route path="categories/*" element={<Categories />} />
                     <Route path="carts/*" element={<Carts />} />
+                    <Route path="colors/*" element={<Colors />} />
+                    <Route path="styles/*" element={<Styles />} />
                     <Route path="orders/*" element={<Orders />} />
                     <Route path="users/*" element={<Users />} />
                     <Route path="statistics/*" element={<Chart />} />

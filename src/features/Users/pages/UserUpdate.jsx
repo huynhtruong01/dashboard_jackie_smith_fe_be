@@ -48,6 +48,7 @@ function UsersUpdate() {
             toast.success(message, {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 2000,
+                theme: 'colored',
             })
 
             setTimeout(() => navigate('/users'), 3000)
@@ -55,6 +56,7 @@ function UsersUpdate() {
             toast.error(error.response.data.message, {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 2000,
+                theme: 'colored',
             })
         }
     }

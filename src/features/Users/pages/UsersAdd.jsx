@@ -33,12 +33,14 @@ function UsersAdd() {
             const { message } = await usersApi.add(newValues)
             toast.success(message, {
                 autoClose: 2000,
+                theme: 'colored',
             })
 
             setTimeout(() => navigate('/users'), 3000)
         } catch (error) {
             toast.error(error.response.data.message, {
                 autoClose: 2000,
+                theme: 'colored',
             })
         }
     }

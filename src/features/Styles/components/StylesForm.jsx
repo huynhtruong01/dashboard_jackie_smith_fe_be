@@ -2,30 +2,55 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Button, Typography, LinearProgress } from '@mui/material'
 import { orange, grey } from '@mui/material/colors'
 import React from 'react'
+import { useState } from 'react'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
+import categoriesApi from '../../../api/categoriesApi'
+import stylesApi from '../../../api/stylesApi'
 import InputField from '../../../components/formControls/InputField'
+import SelectField from '../../../components/formControls/SelectField'
 
-CategoriesForm.propTypes = {}
+StylesForm.propTypes = {}
 
-function CategoriesForm({ values, onSubmit = null }) {
+function StylesForm({ values, onSubmit = null }) {
+    const [categoryList, setCategoryList] = useState([])
+    console.log(values)
+
+    useEffect(() => {
+        const getCategories = async () => {
+            try {
+                const { categories } = await categoriesApi.getAll()
+                const newCategoryNameList = categories.map((x) => x.name)
+
+                setCategoryList(newCategoryNameList)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        getCategories()
+    }, [])
+
     const schema = yup
         .object()
         .shape({
             name: yup
                 .string()
-                .required('Please enter name of category')
+                .required('Please enter name of style')
                 .test(
                     'at-least-two-words',
                     'Please enter at least a word or at least three letter',
                     (value) => value.split(' ').filter((x) => !!x && x.length >= 3).length >= 1
                 ),
+            category: yup.string().required('Please choose a category'),
         })
         .required()
 
     const form = useForm({
         defaultValues: {
-            name: values?.name || '',
+            name: values?.name,
+            category: values?.category?.name,
         },
         resolver: yupResolver(schema),
     })
@@ -73,7 +98,7 @@ function CategoriesForm({ values, onSubmit = null }) {
                 fontWeight={600}
                 color={`${grey[700]}`}
             >
-                Add category
+                {values?.name ? 'Edit' : 'Add'} style
             </Typography>
             <Box component="form" onSubmit={form.handleSubmit(handleSubmit)}>
                 <Box mb="20px">
@@ -83,6 +108,7 @@ function CategoriesForm({ values, onSubmit = null }) {
                         form={form}
                         placeholder="Please enter name"
                     />
+                    <SelectField name="category" label="Category" form={form} data={categoryList} />
                 </Box>
                 <Button
                     type="submit"
@@ -111,4 +137,4 @@ function CategoriesForm({ values, onSubmit = null }) {
     )
 }
 
-export default CategoriesForm
+export default StylesForm

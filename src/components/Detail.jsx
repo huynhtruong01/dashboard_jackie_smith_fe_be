@@ -1,3 +1,4 @@
+import DeleteIcon from '@mui/icons-material/Delete'
 import {
     Box,
     Button,
@@ -11,9 +12,8 @@ import {
     Typography,
 } from '@mui/material'
 import { grey, orange } from '@mui/material/colors'
-import React from 'react'
 import { capitalizeCharacter, formatPrice } from '../utils/common'
-import DeleteIcon from '@mui/icons-material/Delete'
+import FillColor from './FillColor'
 
 Detail.propTypes = {}
 
@@ -36,12 +36,22 @@ function DetailProduct({ product }) {
                 align="left"
                 sx={{
                     fontSize: '1.1rem',
+                    width: '180px',
                 }}
             >
                 {product.name}
             </TableCell>
             <TableCell align="center">
-                <Box display="flex" justifyContent="center">
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                        div: {
+                            mr: '16px',
+                        },
+                    }}
+                >
                     <Box
                         sx={{
                             fontSize: '1.15rem',
@@ -81,7 +91,7 @@ function DetailProduct({ product }) {
                     fontWeight: 500,
                 }}
             >
-                {capitalizeCharacter(product?.color)}
+                {capitalizeCharacter(product?.style?.name)}
             </TableCell>
             <TableCell
                 align="center"
@@ -89,7 +99,7 @@ function DetailProduct({ product }) {
                     fontWeight: 500,
                 }}
             >
-                {capitalizeCharacter(product?.style)}
+                <FillColor color={product?.color?.name} />
             </TableCell>
         </>
     )
@@ -112,12 +122,20 @@ function DetailItems({ item }) {
                 {item.product.name}
             </TableCell>
             <TableCell align="center">
-                <Box display="flex" justifyContent="center" alignItems="center">
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                        div: {
+                            mr: '16px',
+                        },
+                    }}
+                >
                     <Box
                         sx={{
                             fontSize: '1.3rem',
                             fontWeight: 600,
-                            mr: '16px',
                         }}
                     >
                         {formatPrice(item.product.salePrice)}
@@ -126,17 +144,14 @@ function DetailItems({ item }) {
                         <>
                             <Box
                                 sx={{
-                                    ml: '5px',
                                     color: grey[500],
                                     textDecoration: 'line-through',
-                                    mr: '16px',
                                 }}
                             >
                                 {formatPrice(item.product.originalPrice)}
                             </Box>
                             <Box
                                 sx={{
-                                    ml: '5px',
                                     color: orange[600],
                                     fontWeight: 600,
                                 }}
@@ -190,6 +205,8 @@ function Detail({ title = '', data, onClick = null }) {
 
     console.log(data)
 
+    console.log(data)
+
     return (
         <Box>
             <Box>
@@ -221,40 +238,42 @@ function Detail({ title = '', data, onClick = null }) {
                         )}
                     </Box>
                 </Box>
-                <Box mb="20px" width="300px">
-                    <Box
-                        display="inline-block"
-                        borderRadius="5px"
-                        p="12px"
-                        backgroundColor="#fff"
-                        width="100%"
-                    >
-                        <Box mb="12px">
-                            <Typography component="p" color={grey[500]} fontSize="0.8rem">
-                                Name
-                            </Typography>
-                            <Typography component="p" fontSize="1.1rem" fontWeight={500}>
-                                {data?.userId?.fullname}
-                            </Typography>
-                        </Box>
-                        <Box mb="12px">
-                            <Typography component="p" color={grey[500]} fontSize="0.8rem">
-                                Address
-                            </Typography>
-                            <Typography component="p" fontSize="1.1rem" fontWeight={500}>
-                                {data?.userId?.address}
-                            </Typography>
-                        </Box>
-                        <Box mb="12px">
-                            <Typography component="p" color={grey[500]} fontSize="0.8rem">
-                                Phone number
-                            </Typography>
-                            <Typography component="p" fontSize="1.1rem" fontWeight={500}>
-                                0{data?.userId?.phoneNumber}
-                            </Typography>
+                {data?.userId && (
+                    <Box mb="20px" width="300px">
+                        <Box
+                            display="inline-block"
+                            borderRadius="5px"
+                            p="12px"
+                            backgroundColor="#fff"
+                            width="100%"
+                        >
+                            <Box mb="12px">
+                                <Typography component="p" color={grey[500]} fontSize="0.8rem">
+                                    Name
+                                </Typography>
+                                <Typography component="p" fontSize="1.1rem" fontWeight={500}>
+                                    {data?.userId?.fullname}
+                                </Typography>
+                            </Box>
+                            <Box mb="12px">
+                                <Typography component="p" color={grey[500]} fontSize="0.8rem">
+                                    Address
+                                </Typography>
+                                <Typography component="p" fontSize="1.1rem" fontWeight={500}>
+                                    {data?.userId?.address}
+                                </Typography>
+                            </Box>
+                            <Box mb="12px">
+                                <Typography component="p" color={grey[500]} fontSize="0.8rem">
+                                    Phone number
+                                </Typography>
+                                <Typography component="p" fontSize="1.1rem" fontWeight={500}>
+                                    0{data?.userId?.phoneNumber}
+                                </Typography>
+                            </Box>
                         </Box>
                     </Box>
-                </Box>
+                )}
                 <Box>
                     <TableContainer component={Paper}>
                         <Table>
@@ -268,8 +287,8 @@ function Detail({ title = '', data, onClick = null }) {
                                     </TableCell>
                                     <TableCell align="center">Price</TableCell>
                                     {data?.items && <TableCell align="center">Quantity</TableCell>}
-                                    <TableCell align="center">Color</TableCell>
                                     <TableCell align="center">Style</TableCell>
+                                    <TableCell align="center">Color</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>

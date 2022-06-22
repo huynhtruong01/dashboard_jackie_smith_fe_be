@@ -26,8 +26,8 @@ function ProductsUpdate() {
                     salePrice: product.salePrice,
                     promotionPercent: product.promotionPercent,
                     category: product.category?.name || '',
-                    color: product.color,
-                    style: product.style,
+                    color: product?.color?.name || '',
+                    style: product?.style?.name || '',
                 })
             } catch (error) {
                 console.log('Error: ', error)
@@ -43,6 +43,7 @@ function ProductsUpdate() {
             toast.success(message, {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 2000,
+                theme: 'colored',
             })
 
             setTimeout(() => navigate('/products'), 3000)
@@ -50,6 +51,7 @@ function ProductsUpdate() {
             toast.error(error.response.data.message, {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 2000,
+                theme: 'colored',
             })
         }
     }

@@ -14,7 +14,7 @@ const categoriesApi = {
         return axiosClient.post(url, data)
     },
     update: (data) => {
-        const url = `/categories/${data.id}`
+        const url = `/categories/${data._id}`
         return axiosClient.put(url, data)
     },
     remove: (id) => {

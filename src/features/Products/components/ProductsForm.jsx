@@ -9,18 +9,30 @@ import categoriesApi from '../../../api/categoriesApi'
 import { colors, styles } from '../../../utils/common'
 import { orange, grey } from '@mui/material/colors'
 import UploadImageField from '../../../components/formControls/UploadImageField'
+import colorsApi from '../../../api/colorsApi'
+import stylesApi from '../../../api/stylesApi'
 
 ProductsForm.propTypes = {}
 
 function ProductsForm({ values, onSubmit = null }) {
     const [categoryList, setCategoryList] = useState([])
+    const [colorList, setColorList] = useState([])
+    const [styleList, setStyleList] = useState([])
 
     useEffect(() => {
         const getAllCategory = async () => {
             try {
                 const { categories } = await categoriesApi.getAll()
+                const { colors } = await colorsApi.getAll()
+                const { styles } = await stylesApi.getAll()
+
                 const newCategoriesGetName = categories.map((x) => x.name)
+                const newColorsGetName = colors.map((x) => x.name)
+                const newStylesGetName = styles.map((x) => x.name)
+
                 setCategoryList(newCategoriesGetName)
+                setColorList(newColorsGetName)
+                setStyleList(newStylesGetName)
             } catch (error) {
                 console.log('Error: ', error)
             }
@@ -142,8 +154,8 @@ function ProductsForm({ values, onSubmit = null }) {
                         placeholder="Enter promotion percent"
                     />
                     <SelectField name="category" label="Category" form={form} data={categoryList} />
-                    <SelectField name="color" label="Color" form={form} data={colors()} />
-                    <SelectField name="style" label="Style" form={form} data={styles()} />
+                    <SelectField name="color" label="Color" form={form} data={colorList} />
+                    <SelectField name="style" label="Style" form={form} data={styleList} />
                     <UploadImageField name="image" form={form} label="Image" />
                 </Box>
                 <Button

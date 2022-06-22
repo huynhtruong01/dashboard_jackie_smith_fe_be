@@ -1,11 +1,55 @@
-import { Box, Typography, Button } from '@mui/material'
-import React from 'react'
+import { Box, Typography, Button, CircularProgress } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import { grey, orange } from '@mui/material/colors'
 import { Link, useLocation } from 'react-router-dom'
 import ProductsData from '../components/ProductsData'
+import Search from '../../../components/Filters/Search'
+import productsApi from '../../../api/productsApi'
+import PaginationData from '../../../components/PaginationData'
 
 function ProductsHome() {
     const { pathname } = useLocation()
+    const [filters, setFilters] = useState({ limit: 9, page: 1 })
+    const [productList, setProductList] = useState([])
+    const [pagination, setPagination] = useState(0)
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        const getProducts = async () => {
+            setLoading(true)
+            try {
+                const { products, totalCount } = await productsApi.getAll(filters)
+                let counts = null
+                if (filters.search) {
+                    const productList = await productsApi.getAll(filters)
+                    counts = productList.products.length
+                }
+
+                if (counts) {
+                    setPagination(counts)
+                } else {
+                    setPagination(totalCount)
+                }
+                setProductList(products)
+            } catch (error) {
+                console.log('Error: ', error)
+            }
+
+            setLoading(false)
+        }
+
+        getProducts()
+    }, [filters])
+
+    console.log(filters)
+
+    const handleSearch = (value) => {
+        setFilters((prev) => ({ ...prev, search: value, page: 1 }))
+    }
+
+    const handlePaginationChange = (page) => {
+        setFilters((prev) => ({ ...prev, page }))
+    }
 
     return (
         <Box>
@@ -39,8 +83,51 @@ function ProductsHome() {
                     <Link to={`${pathname}/add`}>Add new</Link>
                 </Button>
             </Box>
+
             <Box>
-                <ProductsData />
+                <Box width="320px" mb="12px">
+                    <Search onSubmit={handleSearch} />
+                </Box>
+                {productList.length > 0 && (
+                    <>
+                        {loading && (
+                            <Box
+                                display="flex"
+                                width="100%"
+                                justifyContent="center"
+                                alignItems="center"
+                                sx={{
+                                    svg: {
+                                        color: orange[500],
+                                    },
+                                }}
+                            >
+                                <CircularProgress />
+                            </Box>
+                        )}
+                        {!loading && (
+                            <>
+                                <Box mb="16px">
+                                    <ProductsData productList={productList} />
+                                </Box>
+                                {pagination > 0 && (
+                                    <Box display="flex" justifyContent="flex-end" pr="32px">
+                                        <PaginationData
+                                            filters={filters}
+                                            totalCount={pagination}
+                                            onChange={handlePaginationChange}
+                                        />
+                                    </Box>
+                                )}
+                            </>
+                        )}
+                    </>
+                )}
+                {productList.length === 0 && (
+                    <Typography textAlign="center" mt="32px" fontSize="1.2rem">
+                        Not found word search "{filters.search}"
+                    </Typography>
+                )}
             </Box>
         </Box>
     )

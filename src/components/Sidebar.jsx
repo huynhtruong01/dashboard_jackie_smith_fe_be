@@ -1,15 +1,17 @@
 import BrandingWatermarkIcon from '@mui/icons-material/BrandingWatermark'
 import CategoryIcon from '@mui/icons-material/Category'
+import ColorLensIcon from '@mui/icons-material/ColorLens'
 import DescriptionIcon from '@mui/icons-material/Description'
-import LeaderboardIcon from '@mui/icons-material/Leaderboard'
 import GroupIcon from '@mui/icons-material/Group'
 import HomeIcon from '@mui/icons-material/Home'
+import LeaderboardIcon from '@mui/icons-material/Leaderboard'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import StyleIcon from '@mui/icons-material/Style'
 import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import { orange } from '@mui/material/colors'
-import React, { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 Sidebar.propTypes = {}
 
@@ -34,6 +36,16 @@ function Sidebar(props) {
             name: 'Categories',
             icon: CategoryIcon,
             link: getUser?.user ? 'categories' : 'login',
+        },
+        {
+            name: 'Styles',
+            icon: StyleIcon,
+            link: getUser?.user ? 'styles' : 'login',
+        },
+        {
+            name: 'Colors',
+            icon: ColorLensIcon,
+            link: getUser?.user ? 'colors' : 'login',
         },
         {
             name: 'Carts',

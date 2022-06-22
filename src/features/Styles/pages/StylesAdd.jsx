@@ -1,30 +1,31 @@
 import { Box } from '@mui/material'
-import React from 'react'
-import CategoriesForm from '../components/CategoriesForm'
-import categoriesApi from '../../../api/categoriesApi'
 import { useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import stylesApi from '../../../api/stylesApi'
+import StylesForm from '../components/StylesForm'
 
-CategoriesAdd.propTypes = {}
+StylesAdd.propTypes = {}
 
-function CategoriesAdd() {
+function StylesAdd() {
     const navigate = useNavigate()
 
     const defaultValues = {
         name: '',
+        category: '',
     }
 
     const onSubmit = async (values) => {
         try {
-            const { message } = await categoriesApi.add(values)
+            const { message } = await stylesApi.add(values)
+            console.log(values)
 
             toast.success(message, {
                 autoClose: 2000,
                 theme: 'colored',
             })
             setTimeout(() => {
-                navigate('/categories')
+                navigate('/styles')
             }, 3000)
         } catch (error) {
             toast.success(error.response.data.message, {
@@ -38,7 +39,7 @@ function CategoriesAdd() {
         <Box width="100%" p="10px" display="flex" justifyContent="center">
             <Box width="400px">
                 <Box p="20px" backgroundColor="#fff" borderRadius="8px">
-                    <CategoriesForm values={defaultValues} onSubmit={onSubmit} />
+                    <StylesForm values={defaultValues} onSubmit={onSubmit} />
                 </Box>
             </Box>
             <ToastContainer />
@@ -46,4 +47,4 @@ function CategoriesAdd() {
     )
 }
 
-export default CategoriesAdd
+export default StylesAdd

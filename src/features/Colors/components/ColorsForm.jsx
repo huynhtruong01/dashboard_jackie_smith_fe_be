@@ -1,20 +1,21 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Box, Button, Typography, LinearProgress } from '@mui/material'
-import { orange, grey } from '@mui/material/colors'
-import React from 'react'
+import { Box, Button, LinearProgress, Typography } from '@mui/material'
+import { grey, orange } from '@mui/material/colors'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
+import categoriesApi from '../../../api/categoriesApi'
 import InputField from '../../../components/formControls/InputField'
 
-CategoriesForm.propTypes = {}
+ColorsForm.propTypes = {}
 
-function CategoriesForm({ values, onSubmit = null }) {
+function ColorsForm({ values, onSubmit = null }) {
     const schema = yup
         .object()
         .shape({
             name: yup
                 .string()
-                .required('Please enter name of category')
+                .required('Please enter name of color')
                 .test(
                     'at-least-two-words',
                     'Please enter at least a word or at least three letter',
@@ -25,7 +26,7 @@ function CategoriesForm({ values, onSubmit = null }) {
 
     const form = useForm({
         defaultValues: {
-            name: values?.name || '',
+            name: values?.name,
         },
         resolver: yupResolver(schema),
     })
@@ -73,7 +74,7 @@ function CategoriesForm({ values, onSubmit = null }) {
                 fontWeight={600}
                 color={`${grey[700]}`}
             >
-                Add category
+                {values?.name ? 'Edit' : 'Add'} color
             </Typography>
             <Box component="form" onSubmit={form.handleSubmit(handleSubmit)}>
                 <Box mb="20px">
@@ -111,4 +112,4 @@ function CategoriesForm({ values, onSubmit = null }) {
     )
 }
 
-export default CategoriesForm
+export default ColorsForm

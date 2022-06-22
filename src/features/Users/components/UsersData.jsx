@@ -54,12 +54,14 @@ function UsersData() {
             const { message } = await usersApi.remove(id)
             toast.success(message, {
                 autoClose: 2000,
+                theme: 'colored',
             })
 
             setTimeout(() => window.location.reload(), 3000)
         } catch (error) {
             toast.error(error.response.data.message, {
                 autoClose: 2000,
+                theme: 'colored',
             })
         }
     }

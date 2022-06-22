@@ -16,7 +16,9 @@ import { formatPrice, hashPassword, truncate } from '../utils/common'
 import OptionUpdateDelete from './OptionUpdateDelete'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ClearIcon from '@mui/icons-material/Clear'
-import { red } from '@mui/material/colors'
+import { grey, red } from '@mui/material/colors'
+import { formatColor } from '../utils/color'
+import FillColor from './FillColor'
 
 function Data({ dataHead, dataBody, onClick = null }) {
     const [open, setOpen] = useState(false)
@@ -71,14 +73,15 @@ function Data({ dataHead, dataBody, onClick = null }) {
                             }
 
                             const dataArr = Object.values(cloneData)
+
                             return (
                                 <TableRow
                                     key={data.id}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     {dataArr.map((x, index) => (
-                                        <TableCell align="center" key={index}>
-                                            {x}
+                                        <TableCell align="center" key={index} sx={{}}>
+                                            {data['color'] !== x ? x : <FillColor color={x} />}
                                         </TableCell>
                                     ))}
                                     <TableCell align="center">
