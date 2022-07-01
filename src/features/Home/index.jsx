@@ -17,7 +17,7 @@ import ordersApi from '../../api/ordersApi'
 
 Home.propTypes = {}
 
-function Home(props) {
+function Home() {
     const [counts, setCounts] = useState({})
     const getUser = useSelector((state) => state.users.user)
     const [totalPrice, setTotalPrice] = useState(0)
