@@ -84,7 +84,7 @@ function Header() {
                                 },
                             }}
                         >
-                            <Link to="/home">Jackie Smith</Link>
+                            <Link to="/">Jackie Smith</Link>
                         </Typography>
 
                         <Box>

@@ -14,7 +14,7 @@ function Users() {
 
     useEffect(() => {
         if (!getUser?.user || getUser?.user?.role !== 'admin') {
-            navigate('/home')
+            navigate('/')
         }
     }, [getUser?.user])
 

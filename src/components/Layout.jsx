@@ -34,8 +34,7 @@ function Layout() {
                 }}
             >
                 <Routes>
-                    <Route path="*" element={<NotFound />} />
-                    <Route path="home" element={<Home />} />
+                    <Route path="/" element={<Home />} />
                     <Route path="products/*" element={<Products />} />
                     <Route path="categories/*" element={<Categories />} />
                     <Route path="carts/*" element={<Carts />} />
@@ -47,6 +46,7 @@ function Layout() {
                     <Route path="users/*" element={<Users />} />
                     <Route path="statistics/*" element={<Chart />} />
                     <Route path="user-admin" element={<Permission title="user" />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </Box>
         </Box>

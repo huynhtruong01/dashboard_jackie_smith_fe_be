@@ -17,7 +17,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment'
 
 Sidebar.propTypes = {}
 
-function Sidebar(props) {
+function Sidebar() {
     const { pathname } = useLocation()
     let path = pathname.split('/')
     const [selectIndex, setSelectIndex] = useState(path[1])
@@ -27,7 +27,7 @@ function Sidebar(props) {
         {
             name: 'Home',
             icon: HomeIcon,
-            link: 'home',
+            link: '',
         },
         {
             name: 'Products',

@@ -87,7 +87,7 @@ function ChangePasswordForm({ onSubmit = null }) {
                     },
                 }}
             >
-                <Link to="/home">Back to home</Link>
+                <Link to="/">Back to home</Link>
             </Box>
         </Box>
     )

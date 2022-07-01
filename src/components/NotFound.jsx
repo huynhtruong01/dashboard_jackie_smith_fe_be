@@ -52,7 +52,7 @@ function NotFound(props) {
                 }}
             >
                 <ArrowBackIcon />
-                <Link to="/home">Back to Home Page</Link>
+                <Link to="/">Back to Home Page</Link>
             </Box>
         </Box>
     )

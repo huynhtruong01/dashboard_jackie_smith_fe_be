@@ -22,7 +22,7 @@ function ChangePassword(props) {
                 theme: 'colored',
             })
 
-            setTimeout(() => navigate('/home'), 3000)
+            setTimeout(() => navigate('/'), 3000)
         } catch (error) {
             console.log(error)
             toast.error('Change password failed', {
