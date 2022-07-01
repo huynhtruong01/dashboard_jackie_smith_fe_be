@@ -11,6 +11,7 @@ import { orange, grey } from '@mui/material/colors'
 import UploadImageField from '../../../components/formControls/UploadImageField'
 import colorsApi from '../../../api/colorsApi'
 import stylesApi from '../../../api/stylesApi'
+import TextAreaField from '../../../components/formControls/TextAreaField'
 
 ProductsForm.propTypes = {}
 
@@ -129,7 +130,7 @@ function ProductsForm({ values, onSubmit = null }) {
             <Box component="form" onSubmit={form.handleSubmit(handleSubmit)}>
                 <Box mb="20px">
                     <InputField name="name" form={form} label="Name" placeholder="Enter name" />
-                    <InputField
+                    <TextAreaField
                         name="description"
                         form={form}
                         label="Description"

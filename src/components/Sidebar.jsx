@@ -12,6 +12,8 @@ import { orange } from '@mui/material/colors'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
+import LocalShippingIcon from '@mui/icons-material/LocalShipping'
+import AssignmentIcon from '@mui/icons-material/Assignment'
 
 Sidebar.propTypes = {}
 
@@ -25,7 +27,7 @@ function Sidebar(props) {
         {
             name: 'Home',
             icon: HomeIcon,
-            link: '',
+            link: 'home',
         },
         {
             name: 'Products',
@@ -58,6 +60,16 @@ function Sidebar(props) {
             link: getUser?.user ? 'orders' : 'login',
         },
         {
+            name: 'Shipping',
+            icon: LocalShippingIcon,
+            link: getUser?.user ? 'shipping' : 'login',
+        },
+        {
+            name: 'Order successful',
+            icon: AssignmentIcon,
+            link: getUser?.user ? 'orders-successful' : 'login',
+        },
+        {
             name: 'Users',
             icon: GroupIcon,
             link: getUser?.user
@@ -86,9 +98,10 @@ function Sidebar(props) {
             sx={{
                 position: 'fixed',
                 flex: 1,
-                height: '100vh',
+                height: 'calc(100vh - 64px)',
                 backgroundColor: '#fff',
                 width: '250px',
+                overflowY: 'scroll',
             }}
         >
             <Box>

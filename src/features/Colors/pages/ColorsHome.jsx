@@ -4,12 +4,14 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import colorsApi from '../../../api/colorsApi'
 import CardItem from '../../../components/CardItem'
+import DataMessageEmpty from '../../../components/DataMessageEmpty'
 
 ColorsHome.propTypes = {}
 
 function ColorsHome(props) {
     const { pathname } = useLocation()
     const [colorList, setColorList] = useState([])
+    // const isToggle = useSelector((state) => state.toggle.isToggle)
 
     useEffect(() => {
         const getAllColor = async () => {
@@ -54,6 +56,7 @@ function ColorsHome(props) {
                 </Button>
             </Box>
             <Box width="100%">
+                {colorList.length === 0 && <DataMessageEmpty text="Colors is empty" />}
                 <Box
                     display="flex"
                     width="100%"

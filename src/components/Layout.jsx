@@ -7,9 +7,12 @@ import Chart from '../features/Chart'
 import Colors from '../features/Colors'
 import Home from '../features/Home'
 import Orders from '../features/Orders'
+import OrdersSuccess from '../features/OrderSuccess'
 import Products from '../features/Products'
+import Shipping from '../features/Shipping'
 import Styles from '../features/Styles'
 import Users from '../features/Users'
+import NotFound from './NotFound'
 import Permission from './Permission'
 import Sidebar from './Sidebar'
 
@@ -31,13 +34,16 @@ function Layout() {
                 }}
             >
                 <Routes>
-                    <Route path="" element={<Home />} />
+                    <Route path="*" element={<NotFound />} />
+                    <Route path="home" element={<Home />} />
                     <Route path="products/*" element={<Products />} />
                     <Route path="categories/*" element={<Categories />} />
                     <Route path="carts/*" element={<Carts />} />
                     <Route path="colors/*" element={<Colors />} />
                     <Route path="styles/*" element={<Styles />} />
                     <Route path="orders/*" element={<Orders />} />
+                    <Route path="shipping/*" element={<Shipping />} />
+                    <Route path="orders-successful/*" element={<OrdersSuccess />} />
                     <Route path="users/*" element={<Users />} />
                     <Route path="statistics/*" element={<Chart />} />
                     <Route path="user-admin" element={<Permission title="user" />} />

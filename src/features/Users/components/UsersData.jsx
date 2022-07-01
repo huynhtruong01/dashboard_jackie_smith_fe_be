@@ -19,16 +19,7 @@ function UsersData() {
         getAllUser()
     }, [])
 
-    const dataHead = [
-        'Id',
-        'Full Name',
-        'Email',
-        'Address',
-        'Phone Number',
-        'Password',
-        'Role',
-        'Option',
-    ]
+    const dataHead = ['Id', 'Full Name', 'Email', 'Password', 'Role', 'Option']
 
     let dataBody = []
     if (Array.isArray(userList) && userList.length > 0) {
@@ -37,8 +28,6 @@ function UsersData() {
                 id: user?._id,
                 fullname: user?.fullname,
                 email: user?.email,
-                address: user?.address,
-                phoneNumber: user?.phoneNumber,
                 password: user?.password,
                 role: user?.role,
             }

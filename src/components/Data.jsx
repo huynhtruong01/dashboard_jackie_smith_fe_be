@@ -19,11 +19,19 @@ import ClearIcon from '@mui/icons-material/Clear'
 import { grey, red } from '@mui/material/colors'
 import { formatColor } from '../utils/color'
 import FillColor from './FillColor'
+import OptionOrder from './OptionOrder'
+import ordersApi from '../api/ordersApi'
+import OptionShipping from './OptionShipping'
+import { useDispatch, useSelector } from 'react-redux'
+import { changeToggle } from '../redux/toggleSlice'
+import OptionDetailDelete from './OptionDetailDelete'
 
 function Data({ dataHead, dataBody, onClick = null }) {
     const [open, setOpen] = useState(false)
     const [name, setName] = useState('')
     const [id, setId] = useState(null)
+    const dispatch = useDispatch()
+    const isToggle = useSelector((state) => state.toggle.isToggle)
 
     const handleClose = () => {
         setOpen(false)
@@ -33,12 +41,40 @@ function Data({ dataHead, dataBody, onClick = null }) {
         if (!id || !onClick) return
 
         try {
-            await onClick(id)
             setOpen(false)
+            await onClick(id)
+            dispatch(changeToggle(!isToggle))
         } catch (error) {
             console.log('Error: ', error)
         }
     }
+
+    const handleApprovedClick = async (id, value) => {
+        try {
+            await ordersApi.updateApproved({ _id: id, mode: value })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleShippingClick = async (id, value) => {
+        try {
+            await ordersApi.updateShipping({ _id: id, isCheckout: value })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleSuccessfulDeliveryClick = async (id, value) => {
+        try {
+            await ordersApi.updateSuccessfulDelivery({ _id: id, mode: value })
+            dispatch(changeToggle(!isToggle))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    console.log(dataBody)
 
     return (
         <Box>
@@ -55,7 +91,8 @@ function Data({ dataHead, dataBody, onClick = null }) {
                     </TableHead>
                     <TableBody>
                         {dataBody?.map((data) => {
-                            const cloneData = { ...data, id: truncate(data.id, 7) }
+                            const { mode, isCheckout, type, ...restData } = data
+                            const cloneData = { ...restData, id: truncate(data.id, 7) }
                             if (cloneData?.password) {
                                 const strPass = hashPassword(8)
                                 cloneData.password = strPass
@@ -85,12 +122,37 @@ function Data({ dataHead, dataBody, onClick = null }) {
                                         </TableCell>
                                     ))}
                                     <TableCell align="center">
-                                        <OptionUpdateDelete
-                                            data={data}
-                                            setName={setName}
-                                            setOpen={setOpen}
-                                            setId={setId}
-                                        />
+                                        {data.type === 'order' && (
+                                            <OptionOrder
+                                                data={data}
+                                                onClick={handleApprovedClick}
+                                            />
+                                        )}
+                                        {data?.type === 'shipping' && (
+                                            <OptionShipping
+                                                data={data}
+                                                onShippingClick={handleShippingClick}
+                                                onSuccessfulDeliveryClick={
+                                                    handleSuccessfulDeliveryClick
+                                                }
+                                            />
+                                        )}
+                                        {!data.totalQuantity && (
+                                            <OptionUpdateDelete
+                                                data={data}
+                                                setName={setName}
+                                                setOpen={setOpen}
+                                                setId={setId}
+                                            />
+                                        )}
+                                        {data.type === 'order successful' && (
+                                            <OptionDetailDelete
+                                                data={data}
+                                                setName={setName}
+                                                setOpen={setOpen}
+                                                setId={setId}
+                                            />
+                                        )}
                                     </TableCell>
                                 </TableRow>
                             )

@@ -7,12 +7,13 @@ import ordersApi from '../../../api/ordersApi'
 import DetailOrder from '../../../components/DetailOrder'
 import { formatDate } from '../../../utils/common'
 
-OrdersDetail.propTypes = {}
+OrdersSuccessDetail.propTypes = {}
 
-function OrdersDetail() {
+function OrdersSuccessDetail() {
     const params = useParams()
     const navigate = useNavigate()
     const [order, setOrder] = useState(null)
+    console.log(params)
 
     useEffect(() => {
         const getOrder = async () => {
@@ -67,9 +68,10 @@ function OrdersDetail() {
 
     return (
         <Box>
-            {order && <DetailOrder data={order} title="Order" />} <ToastContainer />
+            {order && <DetailOrder data={order} title="Order" />}
+            <ToastContainer />
         </Box>
     )
 }
 
-export default OrdersDetail
+export default OrdersSuccessDetail

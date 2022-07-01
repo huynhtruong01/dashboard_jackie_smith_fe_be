@@ -94,7 +94,7 @@ function Widget({ data }) {
                                     },
                                 }}
                             >
-                                <Link to={data.link}>{data.titleLink}</Link>
+                                <Link to={`/${data.link}`}>{data.titleLink}</Link>
                                 <ArrowRightIcon />
                             </Box>
                         </Box>

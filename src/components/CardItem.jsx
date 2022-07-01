@@ -156,14 +156,14 @@ function CardItem({ title, data, number }) {
                                     mb: '2px',
                                 }}
                             >{`${title} #${truncate(data._id, 4)}`}</Typography>
-                            {data?.name && (
-                                <Typography
-                                    variant="body2"
-                                    color={`${grey[500]}`}
-                                >{`${data.name}`}</Typography>
-                            )}
+                            {data?.fullname ||
+                                (data?.name && (
+                                    <Typography variant="body2" color={`${grey[500]}`}>{`${
+                                        data?.fullname || data?.name
+                                    }`}</Typography>
+                                ))}
 
-                            {data?.userId?.fullname && (
+                            {data?.fullname && (
                                 <Typography variant="body2" color={`${grey[500]}`}>
                                     {formatDate(data?.updatedAt)}
                                 </Typography>
@@ -187,14 +187,14 @@ function CardItem({ title, data, number }) {
                         </Box>
                     </Box>
 
-                    {data?.userId?.fullname && (
+                    {data?.fullname && (
                         <Box
                             m="16px 0"
                             p="8px"
                             border={`1px solid ${grey[300]}`}
                             borderRadius="5px"
                         >
-                            <Box display="flex" p="4px 0">
+                            <Box display="flex" p="4px 0" justifyContent="space-between">
                                 <Typography
                                     component="span"
                                     fontSize="0.9rem"
@@ -205,10 +205,24 @@ function CardItem({ title, data, number }) {
                                     Name
                                 </Typography>
                                 <Typography component="span" fontSize="0.9rem">
-                                    {data?.userId?.fullname}
+                                    {data?.fullname}
                                 </Typography>
                             </Box>
-                            <Box display="flex" p="4px 0">
+                            <Box display="flex" p="4px 0" justifyContent="space-between">
+                                <Typography
+                                    component="span"
+                                    fontSize="0.9rem"
+                                    color={orange[500]}
+                                    width="130px"
+                                    mr="16px"
+                                >
+                                    Name
+                                </Typography>
+                                <Typography component="span" fontSize="0.9rem">
+                                    {data?.email}
+                                </Typography>
+                            </Box>
+                            <Box display="flex" p="4px 0" justifyContent="space-between">
                                 <Typography
                                     component="span"
                                     fontSize="0.9rem"
@@ -219,10 +233,10 @@ function CardItem({ title, data, number }) {
                                     Address
                                 </Typography>
                                 <Typography component="span" fontSize="0.9rem">
-                                    {data?.userId?.address}
+                                    {data?.address}
                                 </Typography>
                             </Box>
-                            <Box display="flex" p="4px 0">
+                            <Box display="flex" p="4px 0" justifyContent="space-between">
                                 <Typography
                                     component="span"
                                     fontSize="0.9rem"
@@ -233,7 +247,7 @@ function CardItem({ title, data, number }) {
                                     Phone number
                                 </Typography>
                                 <Typography component="span" fontSize="0.9rem">
-                                    0{data?.userId?.phoneNumber}
+                                    0{data?.phoneNumber}
                                 </Typography>
                             </Box>
                         </Box>
@@ -244,7 +258,7 @@ function CardItem({ title, data, number }) {
                             <CardProduct product={product} />
                         ))}
 
-                        {data?.userId?.fullname &&
+                        {data?.fullname &&
                             data?.items?.slice(0, 2).map((item) => (
                                 <Box key={item._id}>
                                     <CardProductItems item={item} />
@@ -260,6 +274,7 @@ function CardItem({ title, data, number }) {
                                     justifyContent: `${
                                         data?.totalPrice ? 'space-between' : 'center'
                                     }`,
+                                    mb: '12px',
                                     alignItems: 'center',
                                 },
                             }}

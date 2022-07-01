@@ -80,3 +80,17 @@ input {
 .PhoneInputCountry {
     margin-right: 8px;
 }
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+    padding: 10px;
+}

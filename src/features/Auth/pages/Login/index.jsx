@@ -28,7 +28,7 @@ function Login() {
                 theme: 'colored',
             })
 
-            setTimeout(() => navigate('/'), 3000)
+            setTimeout(() => navigate('/home'), 3000)
         } catch (error) {
             toast.error(error.response.data.message, {
                 autoClose: 2000,

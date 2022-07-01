@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import stylesApi from '../../../api/stylesApi'
 import CardItem from '../../../components/CardItem'
+import DataMessageEmpty from '../../../components/DataMessageEmpty'
 
 StylesHome.propTypes = {}
 
@@ -53,6 +54,7 @@ function StylesHome() {
                 </Button>
             </Box>
             <Box width="100%">
+                {styleList.length === 0 && <DataMessageEmpty text="Styles is empty" />}
                 <Box
                     display="flex"
                     width="100%"

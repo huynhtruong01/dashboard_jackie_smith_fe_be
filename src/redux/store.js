@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import userReducer from '../features/Users/userSlice'
+import toggleReducer from './toggleSlice'
 import {
     persistStore,
     persistReducer,
@@ -14,6 +15,7 @@ import storage from 'redux-persist/lib/storage'
 
 const rootReducer = combineReducers({
     users: userReducer,
+    toggle: toggleReducer,
 })
 const persistConfig = {
     key: 'root',

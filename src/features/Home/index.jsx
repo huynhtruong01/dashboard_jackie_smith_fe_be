@@ -47,7 +47,7 @@ function Home(props) {
         {
             name: 'Orders',
             icon: DescriptionIcon,
-            link: 'orders',
+            link: 'orders-successful',
             titleLink: 'View all orders',
             color: deepPurple,
         },

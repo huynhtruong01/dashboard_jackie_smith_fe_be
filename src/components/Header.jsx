@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { logout } from '../features/Users/userSlice'
 import { getNameInLast } from '../utils/common'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 
 Header.propTypes = {}
 
@@ -83,7 +84,7 @@ function Header() {
                                 },
                             }}
                         >
-                            <Link to="/">Jackie Smith</Link>
+                            <Link to="/home">Jackie Smith</Link>
                         </Typography>
 
                         <Box>
@@ -97,10 +98,13 @@ function Header() {
                                         onClick={handleClick}
                                         sx={{
                                             color: orange[700],
+                                            backgroundColor: orange[50],
                                             '&:hover': {
-                                                backgroundColor: orange[50],
+                                                backgroundColor: orange[600],
+                                                color: '#fff',
                                             },
                                         }}
+                                        endIcon={<ArrowDropDownIcon />}
                                     >
                                         Hi, {getNameInLast(getUser.user.fullname)}
                                     </Button>

@@ -23,16 +23,6 @@ function InfoAccount() {
             value: user.email,
         },
         {
-            id: 'address',
-            label: 'Address',
-            value: user.address,
-        },
-        {
-            id: 'phoneNumber',
-            label: 'Phone Number',
-            value: `0${user.phoneNumber}`,
-        },
-        {
             id: 'password',
             label: 'Password',
             value: hashPassword(8),

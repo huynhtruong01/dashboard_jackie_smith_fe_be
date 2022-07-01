@@ -6,6 +6,7 @@ import ProductsData from '../components/ProductsData'
 import Search from '../../../components/Filters/Search'
 import productsApi from '../../../api/productsApi'
 import PaginationData from '../../../components/PaginationData'
+import { useSelector } from 'react-redux'
 
 function ProductsHome() {
     const { pathname } = useLocation()
@@ -13,6 +14,7 @@ function ProductsHome() {
     const [productList, setProductList] = useState([])
     const [pagination, setPagination] = useState(0)
     const [loading, setLoading] = useState(false)
+    const isToggle = useSelector((state) => state.toggle.isToggle)
 
     useEffect(() => {
         const getProducts = async () => {
@@ -39,7 +41,7 @@ function ProductsHome() {
         }
 
         getProducts()
-    }, [filters])
+    }, [filters, isToggle])
 
     console.log(filters)
 

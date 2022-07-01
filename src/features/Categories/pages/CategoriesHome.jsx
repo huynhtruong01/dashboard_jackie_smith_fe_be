@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import categoriesApi from '../../../api/categoriesApi'
 import CardItem from '../../../components/CardItem'
+import DataMessageEmpty from '../../../components/DataMessageEmpty'
 
 CategoriesHome.propTypes = {}
 
@@ -53,6 +54,7 @@ function CategoriesHome(props) {
                 </Button>
             </Box>
             <Box width="100%">
+                {categoryList.length === 0 && <DataMessageEmpty text="Categories is empty" />}
                 <Box
                     display="flex"
                     width="100%"

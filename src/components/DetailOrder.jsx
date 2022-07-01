@@ -91,48 +91,11 @@ function DetailOrderItem({ item }) {
     )
 }
 
-function DetailOrderItems({ items, number }) {
-    const { datePay, products } = items
-
-    console.log(products)
+function DetailOrderItems({ items }) {
+    const { products } = items
 
     return (
         <Box mb="40px">
-            <Box mb="8px">
-                <Typography
-                    variant="h6"
-                    component="h2"
-                    display="inline-block"
-                    color={grey[700]}
-                    backgroundColor="#fff"
-                    borderRadius="5px"
-                    p="8px 12px"
-                    fontWeight={600}
-                    mr="12px"
-                >
-                    Invoice{' '}
-                    <Typography
-                        component="span"
-                        color={orange[500]}
-                        fontSize="1.3rem"
-                        fontWeight={600}
-                    >
-                        {number}
-                    </Typography>
-                </Typography>
-                <Typography
-                    component="span"
-                    variant="body1"
-                    color={grey[700]}
-                    backgroundColor="#fff"
-                    borderRadius="5px"
-                    p="8px 12px"
-                    fontWeight={500}
-                    border={`1px solid ${grey[300]}`}
-                >
-                    Date pay: {datePay}
-                </Typography>
-            </Box>
             <Box mb="16px">
                 <TableContainer component={Paper}>
                     <Table>
@@ -160,29 +123,6 @@ function DetailOrderItems({ items, number }) {
                         </TableBody>
                     </Table>
                 </TableContainer>
-            </Box>
-            <Box display="flex" flexDirection="column" alignItems="flex-end">
-                <Box
-                    display="inline-block"
-                    backgroundColor="#fff"
-                    borderRadius="5px"
-                    p="12px"
-                    width="23%"
-                >
-                    <Box
-                        display="flex"
-                        justifyContent="space-between"
-                        p="12px 0"
-                        borderBottom={`1px solid ${grey[300]}`}
-                    >
-                        <Typography component="span">Total quantity</Typography>
-                        <Typography component="span">{calculatorQuantity(products)}</Typography>
-                    </Box>
-                    <Box display="flex" justifyContent="space-between" p="12px 0">
-                        <Typography component="span">Total price</Typography>
-                        <Typography component="span">{calculatorPrice(products)}</Typography>
-                    </Box>
-                </Box>
             </Box>
         </Box>
     )
@@ -216,7 +156,15 @@ function DetailOrder({ data, title = '' }) {
                                     Name
                                 </Typography>
                                 <Typography component="p" fontSize="1.1rem" fontWeight={500}>
-                                    {data?.userId?.fullname}
+                                    {data?.fullname}
+                                </Typography>
+                            </Box>
+                            <Box mb="12px">
+                                <Typography component="p" color={grey[500]} fontSize="0.8rem">
+                                    Email
+                                </Typography>
+                                <Typography component="p" fontSize="1.1rem" fontWeight={500}>
+                                    {data?.email}
                                 </Typography>
                             </Box>
                             <Box mb="12px">
@@ -224,7 +172,7 @@ function DetailOrder({ data, title = '' }) {
                                     Address
                                 </Typography>
                                 <Typography component="p" fontSize="1.1rem" fontWeight={500}>
-                                    {data?.userId?.address}
+                                    {data?.address}
                                 </Typography>
                             </Box>
                             <Box mb="12px">
@@ -232,7 +180,15 @@ function DetailOrder({ data, title = '' }) {
                                     Phone number
                                 </Typography>
                                 <Typography component="p" fontSize="1.1rem" fontWeight={500}>
-                                    0{data?.userId?.phoneNumber}
+                                    {data?.phoneNumber}
+                                </Typography>
+                            </Box>
+                            <Box mb="12px">
+                                <Typography component="p" color={grey[500]} fontSize="0.8rem">
+                                    Date payment
+                                </Typography>
+                                <Typography component="p" fontSize="1.1rem" fontWeight={500}>
+                                    {formatDate(data?.updatedAt)}
                                 </Typography>
                             </Box>
                         </Box>
@@ -279,7 +235,7 @@ function DetailOrder({ data, title = '' }) {
                 <Box>
                     {data?.items?.map((item, index) => (
                         <Box>
-                            <DetailOrderItems items={item} number={index + 1} />
+                            <DetailOrderItems items={item} />
                         </Box>
                     ))}
                 </Box>

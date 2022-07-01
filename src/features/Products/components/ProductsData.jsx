@@ -49,7 +49,6 @@ function ProductsData({ productList = [] }) {
                 autoClose: 2000,
                 theme: 'colored',
             })
-            setTimeout(() => window.location.reload(), 3000)
         } catch (error) {
             toast.error(error.response.data.message, {
                 autoClose: 2000,
