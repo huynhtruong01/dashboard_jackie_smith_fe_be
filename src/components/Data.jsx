@@ -103,12 +103,6 @@ function Data({ dataHead, dataBody, onClick = null }) {
                                 cloneData.originalPrice = formatPrice(cloneData.originalPrice)
                             }
 
-                            if (cloneData?.phoneNumber) {
-                                cloneData.phoneNumber = `${cloneData.phoneNumber
-                                    .toString()
-                                    .slice(0, 3)}${hashPassword(6)}`
-                            }
-
                             const dataArr = Object.values(cloneData)
 
                             return (
