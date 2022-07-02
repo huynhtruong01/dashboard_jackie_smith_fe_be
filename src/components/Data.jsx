@@ -92,7 +92,7 @@ function Data({ dataHead, dataBody, onClick = null }) {
                     <TableBody>
                         {dataBody?.map((data) => {
                             const { mode, isCheckout, type, ...restData } = data
-                            const cloneData = { ...restData, id: truncate(data.id, 7) }
+                            const cloneData = { ...restData }
                             if (cloneData?.password) {
                                 const strPass = hashPassword(8)
                                 cloneData.password = strPass
