@@ -35,7 +35,9 @@ function userByYear(obj, orderList) {
                 count: 1,
                 values: [order.userId._id],
             }
-        } else {
+        }
+
+        if (!newObj[`year${getYear(order.updatedAt)}`].values.includes(order.userId._id)) {
             newObj[`year${getYear(order.updatedAt)}`].count += 1
             newObj[`year${getYear(order.updatedAt)}`].values.push(order.userId._id)
         }
@@ -51,7 +53,7 @@ function ChartYear() {
     useEffect(() => {
         const getRevenue = async () => {
             try {
-                const { orders } = await ordersApi.getAll()
+                const { orders } = await ordersApi.getAllSuccess()
 
                 const revenueOther = {
                     year2020: 0,

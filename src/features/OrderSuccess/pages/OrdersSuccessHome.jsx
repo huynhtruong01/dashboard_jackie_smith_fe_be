@@ -16,7 +16,8 @@ function OrdersSuccessHome() {
         const getAllOrder = async () => {
             try {
                 const { orders } = await ordersApi.getAll()
-                setOrderList(orders)
+                const newOrders = orders.reverse()
+                setOrderList(newOrders)
             } catch (error) {
                 console.log('Error: ', error)
             }

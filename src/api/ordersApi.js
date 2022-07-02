@@ -13,6 +13,10 @@ const ordersApi = {
         const url = '/orders/orders-shipping'
         return axiosClient.get(url)
     },
+    getAllSuccess: () => {
+        const url = '/orders/orders-success'
+        return axiosClient.get(url)
+    },
     getById: (id) => {
         const url = `/orders/${id}`
         return axiosClient.get(url)

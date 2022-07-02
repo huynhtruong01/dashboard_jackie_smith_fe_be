@@ -43,7 +43,7 @@ function ChartMonth(props) {
     useEffect(() => {
         const getData = async () => {
             try {
-                const { orders } = await ordersApi.getAll()
+                const { orders } = await ordersApi.getAllSuccess()
 
                 // filter current year
                 const orderList = orders.filter((order) => {

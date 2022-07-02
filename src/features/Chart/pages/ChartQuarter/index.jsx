@@ -64,7 +64,7 @@ function ChartQuarter() {
 
     useEffect(() => {
         const getOrder = async () => {
-            const { orders } = await ordersApi.getAll()
+            const { orders } = await ordersApi.getAllSuccess()
 
             // price
             const revenueQuarterOne = totalPriceQuarter([1, 2, 3], orders)

@@ -29,7 +29,7 @@ function ShippingHome() {
         <Box>
             <Box mb="8px">
                 <Typography variant="h6" component="h2" color={`${grey[900]}`}>
-                    Orders
+                    Shipping
                 </Typography>
             </Box>
             <Box width="100%">
