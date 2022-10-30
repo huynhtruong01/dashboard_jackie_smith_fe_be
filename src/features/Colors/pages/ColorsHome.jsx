@@ -5,19 +5,28 @@ import { Link, useLocation } from 'react-router-dom'
 import colorsApi from '../../../api/colorsApi'
 import CardItem from '../../../components/CardItem'
 import DataMessageEmpty from '../../../components/DataMessageEmpty'
+import LoadingCircle from '../../../components/Loading/LoadingCircle'
 
 ColorsHome.propTypes = {}
 
 function ColorsHome(props) {
     const { pathname } = useLocation()
     const [colorList, setColorList] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     // const isToggle = useSelector((state) => state.toggle.isToggle)
 
     useEffect(() => {
         const getAllColor = async () => {
-            const { colors } = await colorsApi.getAll()
-            console.log(colors)
-            setColorList(colors)
+            try {
+                setIsLoading(true)
+                const { colors } = await colorsApi.getAll()
+                // console.log(colors)
+                setColorList(colors)
+            } catch (error) {
+                console.log(error)
+            }
+
+            setIsLoading(false)
         }
 
         getAllColor()
@@ -56,7 +65,10 @@ function ColorsHome(props) {
                 </Button>
             </Box>
             <Box width="100%">
-                {colorList.length === 0 && <DataMessageEmpty text="Colors is empty" />}
+                {colorList.length === 0 && !isLoading && (
+                    <DataMessageEmpty text="Colors is empty" />
+                )}
+                {isLoading && <LoadingCircle />}
                 <Box
                     display="flex"
                     width="100%"

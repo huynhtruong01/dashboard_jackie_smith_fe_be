@@ -1,24 +1,25 @@
-import { Box, Typography, Button, CircularProgress } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import { Box, Button, CircularProgress, Typography } from '@mui/material'
 import { grey, orange } from '@mui/material/colors'
-import { Link, useLocation } from 'react-router-dom'
-import ProductsData from '../components/ProductsData'
-import Search from '../../../components/Filters/Search'
-import productsApi from '../../../api/productsApi'
-import PaginationData from '../../../components/PaginationData'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { Link, useLocation } from 'react-router-dom'
+import productsApi from '../../../api/productsApi'
+import Search from '../../../components/Filters/Search'
+import LoadingCircle from '../../../components/Loading/LoadingCircle'
+import PaginationData from '../../../components/PaginationData'
+import ProductsData from '../components/ProductsData'
 
 function ProductsHome() {
     const { pathname } = useLocation()
     const [filters, setFilters] = useState({ limit: 9, page: 1 })
     const [productList, setProductList] = useState([])
     const [pagination, setPagination] = useState(0)
-    const [loading, setLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const isToggle = useSelector((state) => state.toggle.isToggle)
 
     useEffect(() => {
         const getProducts = async () => {
-            setLoading(true)
+            setIsLoading(true)
             try {
                 const { products, totalCount } = await productsApi.getAll(filters)
                 let counts = null
@@ -37,7 +38,7 @@ function ProductsHome() {
                 console.log('Error: ', error)
             }
 
-            setLoading(false)
+            setIsLoading(false)
         }
 
         getProducts()
@@ -92,7 +93,7 @@ function ProductsHome() {
                 </Box>
                 {productList.length > 0 && (
                     <>
-                        {loading && (
+                        {isLoading && (
                             <Box
                                 display="flex"
                                 width="100%"
@@ -107,7 +108,7 @@ function ProductsHome() {
                                 <CircularProgress />
                             </Box>
                         )}
-                        {!loading && (
+                        {!isLoading && (
                             <>
                                 <Box mb="16px">
                                     <ProductsData productList={productList} />
@@ -125,11 +126,13 @@ function ProductsHome() {
                         )}
                     </>
                 )}
-                {productList.length === 0 && (
+
+                {productList.length === 0 && !isLoading && (
                     <Typography textAlign="center" mt="32px" fontSize="1.2rem">
                         Not found word search "{filters.search}"
                     </Typography>
                 )}
+                {isLoading && <LoadingCircle />}
             </Box>
         </Box>
     )

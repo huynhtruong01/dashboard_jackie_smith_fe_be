@@ -5,17 +5,26 @@ import { Link, useLocation } from 'react-router-dom'
 import categoriesApi from '../../../api/categoriesApi'
 import CardItem from '../../../components/CardItem'
 import DataMessageEmpty from '../../../components/DataMessageEmpty'
+import LoadingCircle from '../../../components/Loading/LoadingCircle'
 
 CategoriesHome.propTypes = {}
 
 function CategoriesHome(props) {
     const { pathname } = useLocation()
     const [categoryList, setCategoryList] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         const getAllCategory = async () => {
-            const { categories } = await categoriesApi.getAll()
-            setCategoryList(categories)
+            try {
+                setIsLoading(true)
+                const { categories } = await categoriesApi.getAll()
+                setCategoryList(categories)
+            } catch (error) {
+                console.log(error)
+            }
+
+            setIsLoading(false)
         }
 
         getAllCategory()
@@ -54,7 +63,10 @@ function CategoriesHome(props) {
                 </Button>
             </Box>
             <Box width="100%">
-                {categoryList.length === 0 && <DataMessageEmpty text="Categories is empty" />}
+                {categoryList.length === 0 && !isLoading && (
+                    <DataMessageEmpty text="Categories is empty" />
+                )}
+                {isLoading && <LoadingCircle />}
                 <Box
                     display="flex"
                     width="100%"

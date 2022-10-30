@@ -5,17 +5,26 @@ import { Link, useLocation } from 'react-router-dom'
 import stylesApi from '../../../api/stylesApi'
 import CardItem from '../../../components/CardItem'
 import DataMessageEmpty from '../../../components/DataMessageEmpty'
+import LoadingCircle from '../../../components/Loading/LoadingCircle'
 
 StylesHome.propTypes = {}
 
 function StylesHome() {
     const { pathname } = useLocation()
     const [styleList, setStyleList] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         const getAllStyle = async () => {
-            const { styles } = await stylesApi.getAll()
-            setStyleList(styles)
+            try {
+                setIsLoading(true)
+                const { styles } = await stylesApi.getAll()
+                setStyleList(styles)
+            } catch (error) {
+                console.log(error)
+            }
+
+            setIsLoading(false)
         }
 
         getAllStyle()
@@ -54,7 +63,10 @@ function StylesHome() {
                 </Button>
             </Box>
             <Box width="100%">
-                {styleList.length === 0 && <DataMessageEmpty text="Styles is empty" />}
+                {styleList.length === 0 && !isLoading && (
+                    <DataMessageEmpty text="Styles is empty" />
+                )}
+                {isLoading && <LoadingCircle />}
                 <Box
                     display="flex"
                     width="100%"

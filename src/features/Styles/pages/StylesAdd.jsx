@@ -28,7 +28,7 @@ function StylesAdd() {
                 navigate('/styles')
             }, 3000)
         } catch (error) {
-            toast.success(error.response.data.message, {
+            toast.error(error.response.data.message, {
                 autoClose: 2000,
                 theme: 'colored',
             })
